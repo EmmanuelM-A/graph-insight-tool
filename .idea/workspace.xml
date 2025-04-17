@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9755d224-8ee6-4143-93ea-e8c741f6ba8e" name="Changes" comment="Added the necessary files for the project.">
-      <change afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/recommend.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/result.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +24,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2vrL98DG5AjEU3ilXbbKsCDm3p4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -41,7 +39,8 @@
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/maduk/Documents/Programming/Personal Projects/graph_insight_tool"
   }
 }]]></component>
   <component name="SharedIndexes">
