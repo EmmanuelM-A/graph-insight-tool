@@ -7,15 +7,19 @@ load_dotenv(".env")
 
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
+app.config["UPLOAD_FOLDER"] = 'uploads'
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     graph = None
     insights = []
+    filepath = None
 
     if request.method == "POST":
         success, result = upload()
+
+        filepath = result
 
         if success:
             filepath = result
@@ -25,13 +29,11 @@ def index():
             # Visualize/Generate Graph
             # Generate Insights
 
-            # flash("File uploaded successfully!", "success")
             print(f"File uploaded successfully: {filepath}")
         else:
-            flash(result)
             print(f"File upload failed: {result}")
 
-    return render_template("index.html")
+    return render_template("index.html", message=filepath)
 
 
 if __name__ == "__main__":

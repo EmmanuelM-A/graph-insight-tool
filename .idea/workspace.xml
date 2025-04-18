@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9755d224-8ee6-4143-93ea-e8c741f6ba8e" name="Changes" comment="improving upload mechanism and html file">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="9755d224-8ee6-4143-93ea-e8c741f6ba8e" name="Changes" comment="Added env variables to the project.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/upload.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +150,31 @@
       <option name="project" value="LOCAL" />
       <updated>1744970399734</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Changed the upload mechanism and added success messages to the index.html file.">
+      <option name="closed" value="true" />
+      <created>1744973471903</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744973471903</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added env varaibles to the project.">
+      <option name="closed" value="true" />
+      <created>1744973494027</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1744973494027</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added env variables to the project.">
+      <option name="closed" value="true" />
+      <created>1744973517647</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1744973517647</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -175,6 +195,9 @@
     <MESSAGE value="Experimenting and learning flask basics. Whilst working on the app's index.html." />
     <MESSAGE value="Creating the upload mechanism as well as its basic html." />
     <MESSAGE value="improving upload mechanism and html file" />
-    <option name="LAST_COMMIT_MESSAGE" value="improving upload mechanism and html file" />
+    <MESSAGE value="Changed the upload mechanism and added success messages to the index.html file." />
+    <MESSAGE value="Added env varaibles to the project." />
+    <MESSAGE value="Added env variables to the project." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added env variables to the project." />
   </component>
 </project>
