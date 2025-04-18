@@ -30,6 +30,9 @@ def index():
             # Processes the file into a pandas DataFrame
             data, msg = data_loader.data_loader(filepath)
 
+            # TODO CREATE THE UNIT TESTS FOR THE DATA LOADER
+            # TODO DO THE ANALYZER AND RECOMMENDER STUFF HERE
+
             # Analyze
             # Visualize/Generate Graph
             # Generate Insights

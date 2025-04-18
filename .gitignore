@@ -56,3 +56,8 @@ instance/
 # Other
 *.sqlite3
 
+# Data files
+*.csv
+*.xlsx
+*.xls
+
