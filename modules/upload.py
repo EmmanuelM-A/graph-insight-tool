@@ -4,6 +4,8 @@ import os
 
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 
+UPLOADS_PATH = "./uploads"
+
 
 def allowed_file(filename):
     """
@@ -33,11 +35,9 @@ def upload():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
 
-            upload_path = os.path.join(current_app.root_path, 'uploads')
+            os.makedirs(UPLOADS_PATH, exist_ok=True)
 
-            os.makedirs(upload_path, exist_ok=True)
-
-            filepath = os.path.join(upload_path, filename)
+            filepath = os.path.join(UPLOADS_PATH, filename)
             file.save(filepath)
 
             return True, filepath
