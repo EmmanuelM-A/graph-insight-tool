@@ -1,11 +1,33 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Graph Insights</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    </head>
+    <body>
+        <h1>Title</h1>
 
+        <div id="about">
+            <h2>About</h2>
+            <p>
+                Welcome to the Graph Insights application. This is a simple web application that allows you to visualize
+                and analyze graph data by simply uploading your data. It will generate a graph best suited for your data
+                and (optionally) provide insights based on the graph structure.
+            </p>
+            <p>Visit my <a href="">GitHub</a> to view project code.</p>
+        </div>
 
-{% block head %}
-    <h1>Home</h1>
-{% endblock %}
-
-
-{% block body %}
-    <p>Welcome this is the home page!</p>
-{% endblock %}
+        <div id="upload">
+            <h2>Upload Data</h2>
+            <form action="{{ url_for('index') }}" method="POST" enctype="multipart/form-data">
+                <label for="file">File:</label>
+                <input type="file" name="file" id="file" accept=".csv, .json, .txt" required>
+                <br />
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </body>
+</html>
