@@ -1,3 +1,58 @@
-.idea
-.vscode
+# IDE-specific files
+.idea/
+.vscode/
+*.code-workspace
+
+# Python-specific files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+.ENV/
+
+# Distribution/build files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.*
+
+# Coverage reports
+.coverage
+htmlcov/
+*.cover
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy cache
+.mypy_cache/
+
+# Flask instance folder
+instance/
+
+# Other
+*.sqlite3
 
