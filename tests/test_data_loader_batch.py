@@ -1,4 +1,5 @@
 import os
+import pytest
 import logging
 from modules.data_loader import data_loader
 
@@ -7,38 +8,27 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(levelname)s -> %(message)s",
     handlers=[
-        logging.FileHandler("test_data_loader.log"),  # Log to file
-        logging.StreamHandler()  # Log to console
+        logging.FileHandler("test_data_loader.log", mode='w'),  # Log to file
+        #logging.StreamHandler()  # Log to console
     ]
 )
 
 # Path to the directory containing test files
-TEST_FILES_DIR = "./test_data_files"
+TEST_FILES_DIR = 'test_data_files'
 
+# TODO LOOK INTO LOGGING MECHANISM AND FIGURE OUT WHY LOGGING DOES NOT WORK
 
+@pytest.mark.parametrize("filename", os.listdir(TEST_FILES_DIR))
 def test_data_loader_file(filename):
     filepath = os.path.join(TEST_FILES_DIR, filename)
 
     data, msg = data_loader(filepath)
 
     if data is not None:
-        logging.info(f"{filename} - Successfully loaded!")
-        return True
+        logging.info(f"File: {filename} - Successfully loaded!")
+        assert data is not None
+        print(f"File: {filename} - Successfully loaded!")
     else:
-        logging.error(f"{filename} - Error: {msg}")
-        return False
-
-
-if __name__ == "__main__":
-    total = 0
-    passed = 0
-
-    for file in sorted(os.listdir(TEST_FILES_DIR)):
-        filename = os.fsdecode(file)
-
-        if os.path.isfile(os.path.join(TEST_FILES_DIR, filename)):
-            total += 1
-            if test_data_loader_file(filename):
-                passed += 1
-
-    logging.info(f"Test Summary: {passed}/{total} files loaded successfully.")
+        logging.error(f"File: {filename} - Error: {msg}")
+        assert data is None
+        print(f"File: {filename} - Error: {msg}")
