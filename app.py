@@ -14,37 +14,44 @@ app.config["UPLOAD_FOLDER"] = 'uploads'
 def index():
     graph = None
     insights = []
-    filepath = None  # FOR DEBUGGING
-    data = None  # FOR DEBUGGING
+    upload_result_msg = ""
+    data_preview = []
+    headings = []
 
     if request.method == "POST":
         # Upload the file
-        success, result = upload.upload()
+        result_msg, filepath = upload.upload()
 
-        filepath = result
+        upload_result_msg = result_msg
 
-        if success:
-            # If the file upload was successful then result will be the file path otherwise it will be a message
-            filepath = result
-
+        if filepath is not None:
             # Processes the file into a pandas DataFrame
             data, msg = data_loader.data_loader(filepath)
 
-            # TODO CREATE THE UNIT TESTS FOR THE DATA LOADER
-            # TODO DO THE ANALYZER AND RECOMMENDER STUFF HERE
+            if data is not None:
+                data_preview = data.head(5).values.tolist()
 
-            # Analyze
-            # Visualize/Generate Graph
-            # Generate Insights
+                headings = data.columns.tolist()
 
-            print(f"File uploaded successfully: {filepath}")
-            print(msg)
-            print("First 5 rows of the data:")
-            print(data.head(5))
+                # TODO DO THE ANALYZER AND RECOMMENDER STUFF HERE
+
+                # Analyze
+                # Visualize/Generate Graph
+                # Generate Insights
+
+            # print(f"The file {filepath} uploaded successfully!")
+            # print(msg)
+            # print("First 5 rows of the data:")
+            # print(data.head(5))
         else:
-            print(f"File upload failed: {result}")
+            print(f"File upload failed: {result_msg}")
 
-    return render_template("index.html", message=filepath)
+    return render_template(
+        "index.html",
+        message=upload_result_msg,
+        headings=headings,
+        data=data_preview,
+    )
 
 
 if __name__ == "__main__":

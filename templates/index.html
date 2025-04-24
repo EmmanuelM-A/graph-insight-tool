@@ -34,6 +34,24 @@
                 <p>{{ message }}</p>
             {% endif %}
 
+            <table class="dt-preview">
+                <thead>
+                    <tr>
+                        {% for header in headings %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
     </body>
 </html>

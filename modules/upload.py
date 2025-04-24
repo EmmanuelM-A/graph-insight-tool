@@ -18,19 +18,19 @@ def upload():
     """
     Handles file uploads.
 
-    :return: Tuple of (success_flag, message_or_filepath)
+    :return: Tuple of (result_msg, filepath)
     """
 
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            return False, "No file part"
+            return "No file part!", None
 
         file = request.files['file']
 
         # if user does not select file, browser also submit an empty part without filename
         if file.filename == '':
-            return False, "No selected file"
+            return "No selected file!", None
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -40,8 +40,8 @@ def upload():
             filepath = os.path.join(UPLOADS_PATH, filename)
             file.save(filepath)
 
-            return True, filepath
+            return "File uploaded successfully!", filepath
 
-        return False, "Invalid file format"
+        return "Invalid file format!", None
 
-    return False, "Invalid request method"
+    return "Invalid request method!", None
