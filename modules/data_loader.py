@@ -18,13 +18,13 @@ def data_loader(uploaded_data_filepath):
 
     try:
         is_csv_file = uploaded_data_filepath.endswith('.csv')
-        is_xls_file = uploaded_data_filepath.endswith(('.xls', '.xlsx'))
+        is_xls_or_xlsx_file = uploaded_data_filepath.endswith(('.xls', '.xlsx'))
 
         if is_csv_file:
             data = pd.read_csv(uploaded_data_filepath)
             msg = "CSV file loaded successfully."
-        elif is_xls_file:
-            data = pd.read_excel(uploaded_data_filepath)
+        elif is_xls_or_xlsx_file:
+            data = pd.read_excel(uploaded_data_filepath, engine='openpyxl')
             msg = "Excel file loaded successfully."
         else:
             msg = "File format not supported! Please upload a CSV or Excel file."
