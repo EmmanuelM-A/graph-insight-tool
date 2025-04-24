@@ -17,11 +17,13 @@ def data_loader(uploaded_data_filepath):
     data = None
 
     try:
-        # Check if the data file is one of the allowed formats, and such read into a pandas DataFrame accordingly
-        if uploaded_data_filepath.endswith('.csv'):
+        is_csv_file = uploaded_data_filepath.endswith('.csv')
+        is_xls_file = uploaded_data_filepath.endswith(('.xls', '.xlsx'))
+
+        if is_csv_file:
             data = pd.read_csv(uploaded_data_filepath)
             msg = "CSV file loaded successfully."
-        elif uploaded_data_filepath.endswith(('.xls', '.xlsx')):
+        elif is_xls_file:
             data = pd.read_excel(uploaded_data_filepath)
             msg = "Excel file loaded successfully."
         else:
@@ -30,7 +32,7 @@ def data_loader(uploaded_data_filepath):
         msg = f"Error loading file: {str(e)}"
 
     if data is not None:
-        # Strip whitespace from column names and convert to lowercase
+        # Strips whitespace from column names and convert to lowercase
         data.columns = data.columns.str.strip()
 
     return data, msg
