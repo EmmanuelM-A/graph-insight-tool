@@ -38,13 +38,14 @@ def analyze(df):
                 df[col] = parsed
                 column_info[col] = 'datetime'
             except ValueError:
-                if unique_vals < 100 and unique_ratio < 0.5:
+                # TODO LOOK INTO THIS - MOST LABELS SHOULD BE CATEGORICAL
+                if unique_vals <= 50 and col_data.map(lambda x: isinstance(x, str) and len(x) < 25).mean() > 0.8:
                     column_info[col] = 'categorical'
                 elif is_text_heavy:
                     column_info[col] = 'text'
                 else:
-                    column_info[col] = 'label'
+                    column_info[col] = 'other'
         else:
-            column_info[col] = 'label'
+            column_info[col] = 'other'
 
     return column_info
