@@ -37,7 +37,9 @@ def index():
 
                 print(column_info)
 
-                # recommended_graph = recommender.recommend_graph(data)
+                recommended_graph = recommender.recommend_graph(data)
+
+                print(recommended_graph)
 
                 # Visualize/Generate Graph
                 # Generate Insights
