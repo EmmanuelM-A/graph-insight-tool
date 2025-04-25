@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, request
-from modules import upload, data_loader
+from modules import upload, data_loader, recommender, analyzer
 
 load_dotenv(".env")
 
@@ -35,7 +35,14 @@ def index():
 
                 # TODO DO THE ANALYZER AND RECOMMENDER STUFF HERE
 
-                # Analyze
+                # Analyze the data
+                column_info = analyzer.analyze(data)
+
+                print(column_info)
+
+                # Analyze and Recommender
+                #recommended_graph = recommender.recommend_graph(data)
+
                 # Visualize/Generate Graph
                 # Generate Insights
 
