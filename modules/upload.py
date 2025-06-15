@@ -1,4 +1,4 @@
-from flask import request, current_app
+from flask import request
 from werkzeug.utils import secure_filename
 import os
 

@@ -8,7 +8,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(levelname)s -> %(message)s",
     handlers=[
-        logging.FileHandler("test_data_loader.log", mode='w'),  # Log to file
+        logging.FileHandler("test_logs/test_data_loader.log", mode='w'),  # Log to file
         #logging.StreamHandler()  # Log to console
     ]
 )

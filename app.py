@@ -41,6 +41,10 @@ def index():
 
                 print(recommended_graph)
 
+                # TODO CREATE TEST DATA FILES FOR EACH GRAPH TYPE THAT CAN ACTUALLY BE GENERATED
+                # TODO CREATE TEST DATA FILES
+                # TODO CREATE TESTS FOR THE ANALYZER AND RECOMMENDER
+
                 # Visualize/Generate Graph
                 # Generate Insights
 
