@@ -1,7 +1,7 @@
 import os
 import pytest
 import logging
-from modules.data_loader import data_loader
+from src.modules.data_loader import data_loader
 
 # Setup logging
 logging.basicConfig(
