@@ -61,3 +61,8 @@ instance/
 *.xlsx
 *.xls
 
+# Log files
+logs/
+
+uploads/
+

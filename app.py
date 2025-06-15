@@ -14,3 +14,5 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# TODO: Figure out how to implement the upload button on the frontend, so it runs the api/upload route on the backend
