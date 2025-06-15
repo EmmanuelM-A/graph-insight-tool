@@ -1,3 +1,4 @@
+"""
 import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, request
@@ -62,6 +63,15 @@ def index():
         data=data_preview,
     )
 
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+"""
+
+from src import create_app
+
+app = create_app()
 
 if __name__ == "__main__":
     app.run(debug=True)

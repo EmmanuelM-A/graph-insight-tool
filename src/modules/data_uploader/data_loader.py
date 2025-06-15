@@ -22,7 +22,9 @@ class CSVDataLoader(DataLoader):
     Concrete implementation of the DataLoader for CSV files.
     """
     def load_data(self, source: str) -> pd.DataFrame:
+        # Load CSV using pandas
         pass
+
 
 
 class ExcelDataLoader(DataLoader):
@@ -30,4 +32,5 @@ class ExcelDataLoader(DataLoader):
     Concrete implementation of the DataLoader for Excel files.
     """
     def load_data(self, source: str) -> pd.DataFrame:
+        # Load Excel using pandas
         pass
