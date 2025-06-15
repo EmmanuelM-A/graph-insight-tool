@@ -1,1 +1,1 @@
-LOG_DIRECTORY = ""
+LOG_DIRECTORY = "../../logs"
