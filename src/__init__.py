@@ -3,6 +3,10 @@ from src.routes.upload_routes import upload_bp
 from src.configs.upload_configs import UPLOAD_DIRECTORY
 import os
 
+from src.utils.logger import get_logger
+
+logger = get_logger("app_logger")
+
 def create_app():
     app = Flask(__name__)
 
@@ -11,5 +15,7 @@ def create_app():
 
     # Register Blueprints
     app.register_blueprint(upload_bp)
+
+    logger.info("App setup and running!")
 
     return app

@@ -30,7 +30,7 @@ def process_upload_request(request):
     if file.filename == "":
         logger.error("No file selected!")
         return jsonify({
-            "error": "No file selected"
+            "error": "No file selected!"
         }), HTTP_BAD_REQUEST
 
     # Secure the filename and create the full path
