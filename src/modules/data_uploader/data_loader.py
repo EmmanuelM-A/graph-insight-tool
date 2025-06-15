@@ -7,7 +7,7 @@ class DataLoader(ABC):
     This class defines the interface for loading data from various sources.
     """
     @abstractmethod
-    def load_data(self, source: str) -> pd.DataFrame:
+    def load_data(self, source: str) -> tuple[pd.DataFrame, str]:
         """
         Load data from the specified source.
 
@@ -21,7 +21,7 @@ class CSVDataLoader(DataLoader):
     """
     Concrete implementation of the DataLoader for CSV files.
     """
-    def load_data(self, source: str) -> pd.DataFrame:
+    def load_data(self, source: str) -> tuple[pd.DataFrame, str]:
         # Load CSV using pandas
         pass
 
@@ -31,6 +31,6 @@ class ExcelDataLoader(DataLoader):
     """
     Concrete implementation of the DataLoader for Excel files.
     """
-    def load_data(self, source: str) -> pd.DataFrame:
+    def load_data(self, source: str) -> tuple[pd.DataFrame, str]:
         # Load Excel using pandas
         pass

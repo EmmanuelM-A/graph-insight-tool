@@ -1,12 +1,66 @@
 from flask import jsonify
 from werkzeug.utils import secure_filename
 import os
-from src.modules.data_uploader.upload_handler import UploadHandler
+from src.modules.data_uploader.upload_handler import handle_upload
 from src.configs.upload_configs import UPLOAD_DIRECTORY
+from src.configs.http_response_codes import HTTP_BAD_REQUEST, HTTP_OK
+from src.utils.logger import get_logger
+
+logger = get_logger("upload_controller_logger")
+
 
 def process_upload_request(request):
-    # 1. Check and validate file
-    # 2. Save file to temp_uploads/
-    # 3. Pass file path to UploadHandler().handle_upload()
-    # 4. Return DataFrame column names or error message as JSON
-    pass
+    # Check if the request is a POST request
+    if request.method != "POST":
+        logger.error("Invalid POST request!")
+        return jsonify({
+            "error": "Invalid POST request!",
+        }), HTTP_BAD_REQUEST
+
+    # Check if the request has the file part
+    if "file" not in request.files:
+        logger.error("No file part in the request!")
+        return jsonify({
+            "error": "No file part in the request!"
+        }), HTTP_BAD_REQUEST
+
+    file = request.files["file"]
+
+    # Check if the file is selected
+    if file.filename == "":
+        logger.error("No file selected!")
+        return jsonify({
+            "error": "No file selected"
+        }), HTTP_BAD_REQUEST
+
+    # Secure the filename and create the full path
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(UPLOAD_DIRECTORY, filename)
+
+    # Ensure upload directory exists
+    os.makedirs(UPLOAD_DIRECTORY, exist_ok=True)
+
+    # Save the file temporarily
+    file.save(filepath)
+
+    # Process the file into a DataFrame
+    data, message = handle_upload(filepath)
+
+    # Check if the data exists
+    if data is None:
+        logger.error("")
+        return jsonify({
+            "error": message
+        }), HTTP_BAD_REQUEST
+
+    # Delete file after processing
+    os.remove(filepath)
+
+    logger.info(f"The file: {filename} has been uploaded and processed successfully!")
+
+    # Return basic metadata
+    return jsonify({
+        "message": message,
+        "columns": data.columns.tolist(),
+        "shape": data.shape
+    }), HTTP_OK
