@@ -10,6 +10,6 @@ def create_app():
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
     # Register Blueprints
-    app.register_blueprint(upload_bp)
+    app.register_blueprint(upload_bp, url_prefix="/api")
 
     return app

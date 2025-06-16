@@ -4,7 +4,7 @@ from src.utils.logger import get_logger
 
 logger = get_logger("upload_handler_logger")
 
-def get_loader(filepath: str) -> DataLoader:
+def get_loader(filepath: str) -> type[CSVDataLoader | ExcelDataLoader]:
     """
     Returns the correct loader instance that corresponds to the file extension. If no loader can be found for the file
     then an unsupported format error is raised.
@@ -28,7 +28,7 @@ def handle_upload(filepath: str) -> tuple[pd.DataFrame | None, str]:
     """
     try:
         # Get appropriate loader based on file extension
-        file_loader = get_loader(filepath)
+        file_loader = get_loader(filepath)()
 
         # Use loader to read the file into a DataFrame
         data, message = file_loader.load_data(filepath)

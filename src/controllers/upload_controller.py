@@ -2,11 +2,17 @@ from flask import jsonify
 from werkzeug.utils import secure_filename
 import os
 from src.modules.data_uploader.upload_handler import handle_upload
-from src.configs.upload_configs import UPLOAD_DIRECTORY
+from src.configs.upload_configs import UPLOAD_DIRECTORY, ALLOWED_EXTENSIONS
 from src.configs.http_response_codes import HTTP_BAD_REQUEST, HTTP_OK
 from src.utils.logger import get_logger
 
 logger = get_logger("upload_controller_logger")
+
+def allowed_file(filename):
+    """
+    Checks if the file has an allowed extension.
+    """
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def process_upload_request(request):
@@ -32,6 +38,13 @@ def process_upload_request(request):
         return jsonify({
             "error": "No file selected!"
         }), HTTP_BAD_REQUEST
+    
+    # Check if the file extension is allowed
+    if not allowed_file(file.filename):
+        logger.error("Invalid file format!")
+        return jsonify({
+            "error": "Invalid file format!"
+        }), HTTP_BAD_REQUEST
 
     # Secure the filename and create the full path
     filename = secure_filename(file.filename)
@@ -48,7 +61,7 @@ def process_upload_request(request):
 
     # Check if the data exists
     if data is None:
-        logger.error("")
+        logger.error(message)
         return jsonify({
             "error": message
         }), HTTP_BAD_REQUEST
