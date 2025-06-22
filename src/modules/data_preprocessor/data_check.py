@@ -23,11 +23,3 @@ class DataSanityCheck(DataCheck):
 
     def check_data(self, data: pd.DataFrame) -> bool:
         pass
-
-class DataSensitivityCheck(DataCheck):
-    """
-    Concrete implementation of the DataCheck for checking the sensitivity of data.
-    """
-
-    def check_data(self, data: pd.DataFrame) -> bool:
-        pass
