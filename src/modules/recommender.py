@@ -1,4 +1,4 @@
-from .analyzer import analyze
+from .data_profiler.analyzer import analyze
 
 
 def recommend_graph(df):

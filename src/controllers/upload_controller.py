@@ -15,7 +15,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def process_upload_request(request, show_all_data=False):
+def process_upload_request(request, return_all_data=False):
     # Check if the request is a POST request
     if request.method != "POST":
         logger.error("Invalid POST request!")
@@ -74,5 +74,5 @@ def process_upload_request(request, show_all_data=False):
     # Return basic metadata
     return jsonify({
         "message": message,
-        "data": data if show_all_data else data.heaad(10),
+        "data": data if return_all_data else data.heaad(10),
     }), HTTP_OK
