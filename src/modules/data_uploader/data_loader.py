@@ -1,9 +1,6 @@
 from abc import ABC, abstractmethod
 import pandas as pd
 
-from src.utils.logger import get_logger
-
-logger = get_logger("data_loader_logger")
 
 class DataLoader(ABC):
     """
