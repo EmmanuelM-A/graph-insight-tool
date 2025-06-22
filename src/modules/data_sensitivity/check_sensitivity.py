@@ -12,7 +12,8 @@ def check_sensitivity(data: pd.DataFrame) -> bool:
     # Generate a tabular analysis which describes PII entities in the DataFrame.
     tabular_analysis = PandasAnalysisBuilder().generate_analysis(data)
 
-    if tabular_analysis:
-        return True
-    else:
-        return False
+    return True if tabular_analysis else False
+
+
+def handle_sensitivity_checker():
+    pass
