@@ -27,14 +27,15 @@ def preprocess_data_request(request):
         }), HTTP_BAD_REQUEST
 
     # Check the sensitivity of the data
-    if check_sensitivity(uploaded_data):
+    """if check_sensitivity(uploaded_data):
         logger.error("Data contains sensitive information!")
 
         handle_sensitivity_checker()
 
-    logger.info("Sensitivity check completed, proceeding with preprocessing.")
+    logger.info("Sensitivity check completed, proceeding with preprocessing.")"""
 
     # Preprocess the data
+
 
 
     return None

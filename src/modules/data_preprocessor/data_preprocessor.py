@@ -1,10 +1,28 @@
 from abc import ABC
 import pandas as pd
 
+from src.modules.data_preprocessor.data_check import DataCheck
+from src.modules.data_preprocessor.data_encoder import DataEncoder
+from src.modules.data_preprocessor.data_normalizer import DataNormalizer
+from src.modules.data_preprocessor.data_treatment import DataTreatment
+
+
 class DataPreprocessor(ABC):
     """
     Abstract base class for data preprocessing.
     """
+
+    def __init__(
+            self,
+            checks: list[DataCheck],
+            treatments: list[DataTreatment],
+            encoder: DataEncoder = None,
+            normalizer: DataNormalizer = None
+    ) -> None:
+        self.checks = checks
+        self.treatments = treatments
+        self.encoder = encoder
+        self.normalizer = normalizer
 
     def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
@@ -13,16 +31,21 @@ class DataPreprocessor(ABC):
         :return: Preprocessed DataFrame.
         """
 
-        if not self.run_data_checks(data):
+        encoded_data, normalized_data = None, None
+
+        if not self.validate_data(data):
             raise ValueError("Data does not meet the required conditions.")
 
         treated_data = self.run_data_treatments(data)
 
-        normalized_data = self.normalize_data(treated_data)
+        if self.normalizer:
+            normalized_data = self.normalizer.normalize(treated_data)
 
-        encoded_data = self.encode_data(normalized_data)
+        if self.encoder:
+            encoded_data = self.encoder.encode(normalized_data)
 
-        return encoded_data
+        return treated_data if encoded_data is None else encoded_data
+
 
     def run_data_treatments(self, data: pd.DataFrame) -> pd.DataFrame:
         """
@@ -33,7 +56,8 @@ class DataPreprocessor(ABC):
         """
         raise NotImplementedError("Subclasses must implement this method.")
 
-    def run_data_checks(self, data: pd.DataFrame) -> bool:
+
+    def validate_data(self, data: pd.DataFrame) -> bool:
         """
         Run data checks to ensure the data meets the required conditions.
 
@@ -41,6 +65,7 @@ class DataPreprocessor(ABC):
         :return: True if data passes all checks, False otherwise.
         """
         raise NotImplementedError("Subclasses must implement this method.")
+
 
     def encode_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
@@ -50,6 +75,7 @@ class DataPreprocessor(ABC):
         :return: Encoded DataFrame.
         """
         raise NotImplementedError("Subclasses must implement this method.")
+
 
     def normalize_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
