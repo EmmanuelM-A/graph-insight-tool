@@ -19,7 +19,26 @@ class DataCheck(ABC):
 class DataSanityCheck(DataCheck):
     """
     Concrete implementation of the DataCheck for checking the sanity of data.
+    Ensures the DataFrame is non-empty and has valid rows and columns.
     """
 
     def check_data(self, data: pd.DataFrame) -> bool:
-        pass
+        """
+        Check if the data is valid for further processing.
+        :param data: The DataFrame to check.
+        :return: True if the data is valid, False otherwise.
+        """
+
+        if data is None:
+            return False
+
+        if data.empty:
+            return False
+
+        if data.shape[0] == 0 or data.shape[1] == 0:
+            return False
+
+        if all(data[col].isnull().all() for col in data.columns):
+            return False
+
+        return True

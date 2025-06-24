@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import pandas as pd
+from sklearn.preprocessing import LabelEncoder
 
 class DataEncoder(ABC):
     """
@@ -16,3 +17,16 @@ class DataEncoder(ABC):
         :return: A DataFrame with encoded categorical data.
         """
         raise NotImplementedError("Subclasses must implement this method.")
+
+
+class LabelEncodingEncoder(DataEncoder):
+    """
+    Concrete implementation of DataEncoder using Label Encoding.
+    Applies label encoding to all object or category dtype columns.
+    """
+
+    def encode(self, data: pd.DataFrame) -> pd.DataFrame:
+        label_encoder = LabelEncoder()
+        for col in data.select_dtypes(include=["object", "category"]).columns:
+            data[col] = label_encoder.fit_transform(data[col].astype(str))
+        return data
