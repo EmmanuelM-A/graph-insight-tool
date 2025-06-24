@@ -1,8 +1,11 @@
 from src.configs.http_response_codes import HTTP_BAD_REQUEST, HTTP_OK
+from src.modules.data_preprocessor.data_check import DataSanityCheck
+from src.modules.data_preprocessor.data_treatment import MissingValueTreatment, OutlierTreatment, DuplicateTreatment, \
+    GarbageValueTreatment
 from src.utils.logger import get_logger
 from flask import jsonify
 from src.controllers.upload_controller import process_upload_request
-from src.modules.data_sensitivity.check_sensitivity import check_sensitivity, handle_sensitivity_checker
+from src.modules.data_preprocessor.preprocessing_handler import PreprocessingHandler
 
 logger = get_logger("process_controller_logger")
 
@@ -35,7 +38,25 @@ def preprocess_data_request(request):
     logger.info("Sensitivity check completed, proceeding with preprocessing.")"""
 
     # Preprocess the data
+    preprocessor = PreprocessingHandler(
+        checks=[DataSanityCheck()],
+        treatments=[MissingValueTreatment(), OutlierTreatment(), DuplicateTreatment, GarbageValueTreatment],
+        encoder=None,
+        normalizer=None
+    )
 
+    try:
+        processed_data = preprocessor.preprocess_data(json_data["data"])
 
+        logger.info("Data preprocessing completed successfully.")
 
-    return None
+        return jsonify({
+            "message": "Data preprocessing completed successfully.",
+            "data": processed_data
+        }), HTTP_OK
+
+    except ValueError as e:
+        logger.error(f"Data preprocessing failed: {e}")
+        return jsonify({
+            "error": str(e)
+        }), HTTP_BAD_REQUEST

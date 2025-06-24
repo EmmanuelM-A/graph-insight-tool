@@ -1,5 +1,6 @@
 from flask import Flask
 from src.routes.upload_routes import upload_bp
+from src.routes.preprocess_route import preprocess_bp
 from src.configs.upload_configs import UPLOAD_DIRECTORY
 import os
 
@@ -11,5 +12,6 @@ def create_app():
 
     # Register Blueprints
     app.register_blueprint(upload_bp, url_prefix="/api")
+    app.register_blueprint(preprocess_bp, url_prefix="/api")
 
     return app
