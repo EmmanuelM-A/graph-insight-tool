@@ -5,4 +5,6 @@ preprocess_bp = Blueprint("preprocess_blueprint", __name__)
 
 @preprocess_bp.route("/preprocess", methods=["POST"])
 def preprocess_data():
-    return preprocess_data_request(request)
+    response = preprocess_data_request(request)
+
+    return response.json_object, response.status_code
