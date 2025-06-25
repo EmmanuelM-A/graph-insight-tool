@@ -71,8 +71,10 @@ def process_upload_request(request, return_all_data=False):
 
     logger.info(f"The file: {filename} has been uploaded and processed successfully!")
 
+    data_amount = data if return_all_data else data.heaad(10)
+
     # Return basic metadata
     return jsonify({
         "message": message,
-        "data": data if return_all_data else data.heaad(10),
+        "data": data_amount.to_json()
     }), HTTP_OK

@@ -1,3 +1,5 @@
+import pandas as pd
+from io import StringIO
 from src.configs.http_response_codes import HTTP_BAD_REQUEST, HTTP_OK
 from src.modules.data_preprocessor.data_check import DataSanityCheck
 from src.modules.data_preprocessor.data_treatment import MissingValueTreatment, OutlierTreatment, DuplicateTreatment, \
@@ -14,16 +16,19 @@ def preprocess_data_request(request):
     Handles the preprocessing of data based on the request.
     """
 
-    json_data, http_response = process_upload_request(request, return_all_data=True)
+    response, http_response = process_upload_request(request, return_all_data=True)
+
+    json_data = response.get_json()
 
     if http_response != HTTP_OK:
         return jsonify({
-            "error": json_data.get("error")
+            "error": json_data["error"]
         }), http_response
 
-    uploaded_data = json_data.get("data")
+    uploaded_data_json = json_data["data"]
+    uploaded_data = pd.read_json(StringIO(uploaded_data_json))
 
-    if not uploaded_data:
+    if uploaded_data is None or uploaded_data.empty:
         logger.error("No data found in the uploaded file!")
         return jsonify({
             "error": "No data found in the uploaded file!"
@@ -40,19 +45,19 @@ def preprocess_data_request(request):
     # Preprocess the data
     preprocessor = PreprocessingHandler(
         checks=[DataSanityCheck()],
-        treatments=[MissingValueTreatment(), OutlierTreatment(), DuplicateTreatment, GarbageValueTreatment],
+        treatments=[MissingValueTreatment(), OutlierTreatment(), DuplicateTreatment(), GarbageValueTreatment()],
         encoder=None,
         normalizer=None
     )
 
     try:
-        processed_data = preprocessor.preprocess_data(json_data["data"])
+        processed_data = preprocessor.preprocess_data(uploaded_data)
 
         logger.info("Data preprocessing completed successfully.")
 
         return jsonify({
             "message": "Data preprocessing completed successfully.",
-            "data": processed_data
+            "data": processed_data.head(10).to_json()
         }), HTTP_OK
 
     except ValueError as e:
