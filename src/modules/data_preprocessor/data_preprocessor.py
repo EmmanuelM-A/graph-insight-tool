@@ -24,6 +24,7 @@ class DataPreprocessor(ABC):
         self.encoder = encoder
         self.normalizer = normalizer
 
+
     def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
         Preprocess the data by running checks, treatments, normalization, and encoding.
@@ -43,6 +44,8 @@ class DataPreprocessor(ABC):
 
         if self.encoder:
             encoded_data = self.encoder.encode(normalized_data)
+
+        # Assuming that if normalization is not applied, we return treated data directly
 
         return treated_data if encoded_data is None else encoded_data
 
