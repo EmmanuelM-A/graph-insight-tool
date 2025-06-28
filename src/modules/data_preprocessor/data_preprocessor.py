@@ -24,7 +24,6 @@ class DataPreprocessor(ABC):
         self.encoder = encoder
         self.normalizer = normalizer
 
-
     def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
         Preprocess the data by running checks, treatments, normalization, and encoding.

@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
+
 class DataEncoder(ABC):
     """
     Abstract base class for data encoders.

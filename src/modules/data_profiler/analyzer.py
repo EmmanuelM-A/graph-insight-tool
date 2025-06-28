@@ -1,4 +1,4 @@
-import pandas as pd
+"""import pandas as pd
 import re
 
 
@@ -49,3 +49,4 @@ def analyze(df):
             column_info[col] = 'other'
 
     return column_info
+"""

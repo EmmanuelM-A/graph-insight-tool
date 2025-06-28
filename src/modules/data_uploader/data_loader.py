@@ -30,7 +30,6 @@ class CSVDataLoader(DataLoader):
             return None, f"Failed to load CSV file: {str(e)}"
 
 
-
 class ExcelDataLoader(DataLoader):
     """
     Concrete implementation of the DataLoader for Excel files.

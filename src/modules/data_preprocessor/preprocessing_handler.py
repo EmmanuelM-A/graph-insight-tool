@@ -12,7 +12,7 @@ class PreprocessingHandler(DataPreprocessor):
     """
     PreprocessingHandler is responsible for managing the preprocessing of data.
     """
-    
+
     def __init__(
             self,
             checks: list[DataCheck],

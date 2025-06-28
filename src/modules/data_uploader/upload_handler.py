@@ -1,8 +1,9 @@
 import pandas as pd
-from src.modules.data_uploader.data_loader import DataLoader, CSVDataLoader, ExcelDataLoader
+from src.modules.data_uploader.data_loader import CSVDataLoader, ExcelDataLoader
 from src.utils.logger import get_logger
 
 logger = get_logger("upload_handler_logger")
+
 
 def get_loader(filepath: str) -> type[CSVDataLoader | ExcelDataLoader]:
     """

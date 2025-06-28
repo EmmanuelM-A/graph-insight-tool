@@ -1,7 +1,9 @@
 from src import create_app
 from dotenv import load_dotenv
 
-# TODO: Create unit and e2e tests for the upload and preprocess controllers
+# TODO: OPTIMIZE EXISTING CODE
+# TODO: CREATE STANDARD ERROR AND SUCCESS RESPONSES
+# TODO: ADD LOGGING
 
 load_dotenv(".env")
 

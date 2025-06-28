@@ -1,4 +1,4 @@
-from .data_profiler.analyzer import analyze
+"""from .data_profiler.analyzer import analyze
 
 
 def recommend_graph(df):
@@ -133,3 +133,4 @@ def recommend_graph(df):
         })
 
     return recs
+"""

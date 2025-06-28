@@ -1,6 +1,7 @@
 import pandas as pd
 from presidio_structured import PandasAnalysisBuilder
 
+
 def check_sensitivity(data: pd.DataFrame) -> bool:
     """
     Check if the data does not contain any sensitive information.

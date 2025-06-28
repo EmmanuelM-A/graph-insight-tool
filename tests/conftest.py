@@ -2,6 +2,7 @@ import pytest
 
 TEST_FILE_PATH = "tests/test_data_files/test-data-0.csv"
 
+
 @pytest.fixture
 def get_sample_data():
     """

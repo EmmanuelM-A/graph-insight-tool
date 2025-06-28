@@ -9,6 +9,7 @@ from src.utils.logger import get_logger
 
 logger = get_logger("upload_controller_logger")
 
+
 def allowed_file(filename):
     """
     Checks if the file has an allowed extension.
