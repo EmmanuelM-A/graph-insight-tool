@@ -1,28 +1,41 @@
 """This module defines custom exceptions for the API."""
+from typing import Optional
 
 from fastapi import HTTPException, status
+from src.utils.custom_response import ErrorResponse, ErrorDetail
 
 
 class ApiError(HTTPException):
     """
-    Custom base error class for API errors.
-    Inherits from HTTPException to provide a consistent error response format.
-    All custom API-specific exceptions should inherit from this class.
+    Custom base error class for API errors, providing a structured error response.
+    Inherits from HTTPException.
     """
 
     def __init__(
-            self,
-            status_code: int = status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail: str = "An unexpected API error occurred."
+        self,
+        error_detail: ErrorDetail,
+        status_code: int = status.HTTP_500_INTERNAL_SERVER_ERROR,
+        message: str = "An unexpected error occurred."
     ):
         """
         Initializes the ApiError.
 
         Args:
-            status_code: The HTTP status code for the error.
-            detail: A detailed message describing the error.
+            error_detail: An instance of ErrorDetail providing specific error information.
+            status_code: The HTTP status code for the response.
+            message: A high-level message for the error response.
         """
-        super().__init__(status_code=status_code, detail=detail)
+        # Create the full ErrorResponse object
+        self._error_response = ErrorResponse(
+            success=False,
+            message=message,
+            status_code=status_code,
+            error=error_detail
+        )
+
+        # Pass the dictionary representation of the ErrorResponse as the detail to HTTPException.
+        # This allows our custom exception handler to easily access the structured response.
+        super().__init__(status_code=status_code, detail=self._error_response.model_dump())
 
 
 class ValidationError(ApiError):
@@ -30,15 +43,17 @@ class ValidationError(ApiError):
     Custom error class for validation errors (e.g., invalid input data).
     Corresponds to HTTP 422 Unprocessable Entity.
     """
-
-    def __init__(self, detail: str = "Validation error: The provided data is invalid."):
-        """
-        Initializes the ValidationError.
-
-        Args:
-            detail: A detailed message describing the validation issue.
-        """
-        super().__init__(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=detail)
+    def __init__(
+            self,
+            details: str,
+            code: str = "VALIDATION_ERROR",
+            stack_trace: Optional[str] = None
+    ):
+        super().__init__(
+            error_detail=ErrorDetail(code=code, details=details, stack_trace=stack_trace),
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            message="One or more input validations failed."
+        )
 
 
 class NotFoundError(ApiError):
@@ -46,15 +61,17 @@ class NotFoundError(ApiError):
     Custom error class for when a requested resource is not found.
     Corresponds to HTTP 404 Not Found.
     """
-
-    def __init__(self, detail: str = "Resource not found."):
-        """
-        Initializes the NotFoundError.
-
-        Args:
-            detail: A detailed message describing the missing resource.
-        """
-        super().__init__(status_code=status.HTTP_404_NOT_FOUND, detail=detail)
+    def __init__(
+            self,
+            details: str,
+            code: str = "RESOURCE_NOT_FOUND",
+            stack_trace: Optional[str] = None
+    ):
+        super().__init__(
+            error_detail=ErrorDetail(code=code, details=details, stack_trace=stack_trace),
+            status_code=status.HTTP_404_NOT_FOUND,
+            message="The requested resource could not be found."
+        )
 
 
 class UnauthorizedError(ApiError):

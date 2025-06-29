@@ -8,7 +8,6 @@ import uvicorn
 from src import create_app
 
 # TODO: OPTIMIZE EXISTING CODE
-# TODO: CREATE STANDARD ERROR AND SUCCESS RESPONSES
 
 load_dotenv(".env")
 

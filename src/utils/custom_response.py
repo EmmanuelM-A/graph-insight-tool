@@ -1,24 +1,33 @@
 """This module defines a custom response class for handling API responses."""
 
-from dataclasses import dataclass
-
-import pandas as pd
-from flask import Response
+from pydantic import BaseModel, Field
 
 
-@dataclass
-class CustomResponse:
-    """
-    Custom response class to handle API responses with a consistent structure.
-    """
+class Response(BaseModel):
+    """Response model to standardize the structure of API responses."""
 
-    def __init__(self, json_object: Response, status_code: int, data: pd.DataFrame = None) -> None:
-        """
-        Initializes the CustomResponse object.
-        :param json_object: The JSON response object to be returned.
-        :param status_code: The HTTP status code for the response.
-        :param data: The data to be included in the response, if any (default is None).
-        """
-        self.json_object = json_object
-        self.data = data
-        self.status_code = status_code
+    success: bool = Field(description="Indicates if the request was successful.")
+    message: str = Field(description="Success message for the response.")
+    status_code: int = Field(description="HTTP status code for the error response.")
+
+
+class SuccessResponse(Response):
+    """Represents a successful API response."""
+
+    data: object = Field(default=None,
+                         description="Optional data to be included in the response.")
+
+
+class ErrorDetail(BaseModel):
+    """Model for detailed error information."""
+
+    code: str = Field(description="Error code representing the type of error.")
+    details: str = Field(description="Detailed error message.")
+    stack_trace: str = Field(
+        default=None, description="Optional stack trace for debugging purposes.")
+
+
+class ErrorResponse(Response):
+    """Represents an error API response."""
+
+    error: ErrorDetail = Field(description="An object containing error details.")
