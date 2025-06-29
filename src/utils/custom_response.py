@@ -1,3 +1,5 @@
+"""This module defines a custom response class for handling API responses."""
+
 from dataclasses import dataclass
 
 import pandas as pd

@@ -1,8 +1,10 @@
+"""upload_controller.py"""
+
+import os
 from flask import jsonify
 from werkzeug.utils import secure_filename
-import os
 from src.modules.data_uploader.upload_handler import handle_upload
-from src.configs.upload_configs import UPLOAD_DIRECTORY, ALLOWED_EXTENSIONS
+from src.configs.global_configs import UPLOAD_DIRECTORY, ALLOWED_EXTENSIONS
 from src.configs.http_response_codes import HTTP_BAD_REQUEST, HTTP_OK
 from src.utils.custom_response import CustomResponse
 from src.utils.logger import get_logger
@@ -18,6 +20,8 @@ def allowed_file(filename):
 
 
 def process_upload_request(request):
+    """Processes the file upload request."""
+
     # Check if the request is a POST request
     if request.method != "POST":
         logger.error("Invalid POST request!")
@@ -49,7 +53,7 @@ def process_upload_request(request):
             }),
             HTTP_BAD_REQUEST
         )
-    
+
     # Check if the file extension is allowed
     if not allowed_file(file.filename):
         logger.error("Invalid file format!")
@@ -86,7 +90,7 @@ def process_upload_request(request):
     # Delete file after processing
     os.remove(filepath)
 
-    logger.info(f"The file: {filename} has been uploaded and processed successfully!")
+    logger.info("The file: %d has been uploaded and processed successfully!", filename)
 
     # Return basic metadata
     return CustomResponse(

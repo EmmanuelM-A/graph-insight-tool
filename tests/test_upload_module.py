@@ -16,7 +16,6 @@ class TestUploadModule:
         assert isinstance(data, pd.DataFrame)
         assert msg == "Loaded"
 
-
     @patch("src.modules.data_uploader.upload_handler.get_loader")
     def test_handle_upload_failure(self, mock_get_loader):
         # Simulate loader raising an exception
@@ -28,16 +27,13 @@ class TestUploadModule:
         assert data is None
         assert "Read error" in msg
 
-
     def test_get_loader_csv(self):
         loader = get_loader("file.csv")
         assert loader.__name__ == "CSVDataLoader"
 
-
     def test_get_loader_excel(self):
         loader = get_loader("file.xlsx")
         assert loader.__name__ == "ExcelDataLoader"
-
 
     def test_get_loader_unsupported(self):
         with pytest.raises(ValueError):

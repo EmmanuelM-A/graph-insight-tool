@@ -17,6 +17,13 @@ class DataLoader(ABC):
         """
         raise NotImplementedError("Subclasses must implement this method.")
 
+    def __str__(self):
+        """
+        String representation of the DataLoader.
+        :return: A string indicating the type of data loader.
+        """
+        return f"{self.__class__.__name__} DataLoader"
+
 
 class CSVDataLoader(DataLoader):
     """

@@ -1,4 +1,7 @@
-from src.configs.http_response_codes import HTTP_BAD_REQUEST, HTTP_OK
+"""Handles the preprocessing of data uploaded by the user."""
+
+from fastapi import status
+from flask import jsonify
 from src.modules.data_preprocessor.data_check import DataSanityCheck
 from src.modules.data_preprocessor.data_treatment import (
     MissingValueTreatment,
@@ -7,7 +10,7 @@ from src.modules.data_preprocessor.data_treatment import (
     GarbageValueTreatment)
 from src.utils.custom_response import CustomResponse
 from src.utils.logger import get_logger
-from flask import jsonify
+
 from src.controllers.upload_controller import process_upload_request
 from src.modules.data_preprocessor.preprocessing_handler import PreprocessingHandler
 
@@ -21,27 +24,27 @@ def preprocess_data_request(request):
 
     response = process_upload_request(request)
 
-    if response.status_code != HTTP_OK:
+    if response.status_code != status.HTTP_200_OK:
         return response
 
     uploaded_data = response.data
 
     if uploaded_data is None or uploaded_data.empty:
-        logger.error("No data found in the uploaded file!")
+        logger.error("No data found in the file: %s", 1)
         return CustomResponse(
             jsonify({
                 "error": "No data found in the uploaded file!"
             }),
-            HTTP_BAD_REQUEST
+            status.HTTP_400_BAD_REQUEST
         )
 
     # Check the sensitivity of the data
-    """if check_sensitivity(uploaded_data):
-        logger.error("Data contains sensitive information!")
+    #if check_sensitivity(uploaded_data):
+    #    logger.error("Data contains sensitive information!")
 
-        handle_sensitivity_checker()
+    #    handle_sensitivity_checker()
 
-    logger.info("Sensitivity check completed, proceeding with preprocessing.")"""
+    #logger.info("Sensitivity check completed, proceeding with preprocessing.")"
 
     # Preprocess the data
     preprocessor = PreprocessingHandler(
