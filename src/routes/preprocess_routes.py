@@ -1,11 +1,17 @@
-from flask import Blueprint, request
+"""
+This file defines the routes for the preprocess functionality in the application.
+"""
+
+from fastapi import APIRouter, Request
+from fastapi.responses import JSONResponse
 from src.controllers.preprocess_controller import preprocess_data_request
 
-preprocess_bp = Blueprint("preprocess_blueprint", __name__)
+router = APIRouter()
 
+@router.post("/preprocess")
+async def preprocess_data(request: Request):
+    """Endpoint to preprocess data."""
 
-@preprocess_bp.route("/preprocess", methods=["POST"])
-def preprocess_data():
-    response = preprocess_data_request(request)
+    response = await preprocess_data_request(request)
 
-    return response.json_object, response.status_code
+    return JSONResponse(content=response.json_object, status_code=response.status_code)

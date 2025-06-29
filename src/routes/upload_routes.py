@@ -1,11 +1,17 @@
-from flask import Blueprint, request
+"""
+This file defines the routes for the upload functionality in the application.
+"""
+
+from fastapi import APIRouter, Request
+from fastapi.responses import JSONResponse
 from src.controllers.upload_controller import process_upload_request
 
-upload_bp = Blueprint("upload_blueprint", __name__)
+router = APIRouter()
 
+@router.post("/upload")
+async def upload_file(request: Request):
+    """Endpoint to handle file uploads."""
 
-@upload_bp.route("/upload", methods=["POST"])
-def upload_file():
-    response = process_upload_request(request)
+    response = await process_upload_request(request)
 
-    return response.json_object, response.status_code
+    return JSONResponse(content=response.json_object, status_code=response.status_code)
