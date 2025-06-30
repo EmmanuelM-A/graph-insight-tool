@@ -1,11 +1,12 @@
 """This module defines custom exceptions for the API."""
+from abc import ABC
 from typing import Optional
 
 from fastapi import HTTPException, status
 from src.utils.custom_response import ErrorResponse, ErrorDetail
 
 
-class ApiError(HTTPException):
+class ApiError(HTTPException, ABC):
     """
     Custom base error class for API errors, providing a structured error response.
     Inherits from HTTPException.
@@ -80,14 +81,39 @@ class UnauthorizedError(ApiError):
     Corresponds to HTTP 401 Unauthorized.
     """
 
-    def __init__(self, detail: str = "Authentication required or failed. Invalid credentials."):
-        """
-        Initializes the UnauthorizedError.
+    def __init__(
+            self,
+            details: str,
+            code: str = "UNAUTHORIZED_ACCESS_DETECTED",
+            stack_trace: Optional[str] = None
+    ):
+        super().__init__(
+            error_detail=ErrorDetail(code=code, details=details, stack_trace=stack_trace),
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            message="Authentication failed! Please provide valid credentials."
+        )
 
-        Args:
-            detail: A detailed message about the authentication failure.
-        """
-        super().__init__(status_code=status.HTTP_401_UNAUTHORIZED, detail=detail)
+
+class BadRequestError(ApiError):
+    """
+    Custom error class for HTTP 400 Bad Request errors.
+    Use for invalid requests, such as malformed input or invalid HTTP methods.
+    """
+    def __init__(
+        self,
+        details: str = "The request could not be understood or was missing required parameters.",
+        code: str = "BAD_REQUEST",
+        stack_trace: Optional[str] = None
+    ):
+        super().__init__(
+            error_detail=ErrorDetail(code=code, details=details, stack_trace=stack_trace),
+            status_code=status.HTTP_400_BAD_REQUEST,
+            message="Bad request! Please check your input and try again."
+        )
+
+
+# TODO: REFACTOR THE REST OF THE ERROR CLASSES TO MATCH STANDARD
+
 
 
 class ForbiddenError(ApiError):

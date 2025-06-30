@@ -14,6 +14,7 @@ class Response(BaseModel):
 class SuccessResponse(Response):
     """Represents a successful API response."""
 
+    success: bool = Field(default=True)
     data: object = Field(default=None,
                          description="Optional data to be included in the response.")
 

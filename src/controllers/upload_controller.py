@@ -1,12 +1,13 @@
 """upload_controller.py"""
 
 import os
-from flask import jsonify
 from werkzeug.utils import secure_filename
 from src.modules.data_uploader.upload_handler import handle_upload
 from src.configs.global_configs import UPLOAD_DIRECTORY, ALLOWED_EXTENSIONS
-from src.configs.http_response_codes import HTTP_BAD_REQUEST, HTTP_OK
-from src.utils.custom_response import CustomResponse
+from src.utils import exceptions
+from fastapi import status
+
+from src.utils.custom_response import SuccessResponse
 from src.utils.logger import get_logger
 
 logger = get_logger("upload_controller_logger")
@@ -19,27 +20,23 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def process_upload_request(request):
+async def process_upload_request(request):
     """Processes the file upload request."""
 
     # Check if the request is a POST request
     if request.method != "POST":
         logger.error("Invalid POST request!")
-        return CustomResponse(
-            jsonify({
-                "error": "Invalid POST request!"
-            }),
-            HTTP_BAD_REQUEST
+
+        raise exceptions.BadRequestError(
+            details="Invalid POST request!"
         )
 
     # Check if the request has the file part
     if "file" not in request.files:
         logger.error("No file part in the request!")
-        return CustomResponse(
-            jsonify({
-                "error": "No file part in the request!"
-            }),
-            HTTP_BAD_REQUEST
+
+        raise exceptions.BadRequestError(
+            details="No file part in the request!"
         )
 
     file = request.files["file"]
@@ -47,21 +44,17 @@ def process_upload_request(request):
     # Check if the file is selected
     if file.filename == "":
         logger.error("No file selected!")
-        return CustomResponse(
-            jsonify({
-                "error": "No file selected!"
-            }),
-            HTTP_BAD_REQUEST
+
+        raise exceptions.BadRequestError(
+            details="No file selected!"
         )
 
     # Check if the file extension is allowed
     if not allowed_file(file.filename):
         logger.error("Invalid file format!")
-        return CustomResponse(
-            jsonify({
-                "error": "Invalid file format!"
-            }),
-            HTTP_BAD_REQUEST
+
+        raise exceptions.BadRequestError(
+            details="Invalid file format"
         )
 
     # Secure the filename and create the full path
@@ -80,24 +73,19 @@ def process_upload_request(request):
     # Check if the data exists
     if data is None:
         logger.error(message)
-        return CustomResponse(
-            jsonify({
-                "error": message
-            }),
-            HTTP_BAD_REQUEST
+
+        raise exceptions.BadRequestError(
+            details=message
         )
 
     # Delete file after processing
     os.remove(filepath)
 
-    logger.info("The file: %d has been uploaded and processed successfully!", filename)
+    logger.info("The file: %s has been uploaded and processed successfully!", filename)
 
     # Return basic metadata
-    return CustomResponse(
-        jsonify({
-            "message": message,
-            "preview": data.head(10).to_json(),
-        }),
-        HTTP_OK,
+    return SuccessResponse(
+        message=f"The file: {filename} has been uploaded successfully!",
+        status_code=status.HTTP_200_OK,
         data=data
     )
