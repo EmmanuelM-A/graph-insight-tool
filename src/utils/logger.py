@@ -1,63 +1,66 @@
-"""Logger utility for the application with colorized output and file logging."""
+"""
+Logger utility for the application with colorized console output.
+"""
 
 import logging
 import os
+from typing import Optional
+
 from src.configs.global_configs import LOG_DIRECTORY
 
-LOG_FORMAT = '%(asctime)s [%(levelname)s]: %(message)s'
 
 class ColorFormatter(logging.Formatter):
     """Custom formatter to add color to log messages based on their level."""
 
     COLORS = {
-        'DEBUG': '\033[94m',     # Blue
-        'INFO': '\033[92m',      # Green
-        'WARNING': '\033[93m',   # Yellow
-        'ERROR': '\033[91m',     # Red
-        'CRITICAL': '\033[95m',  # Magenta
+        logging.DEBUG: "\033[94m",     # Blue
+        logging.INFO: "\033[92m",      # Green
+        logging.WARNING: "\033[93m",   # Yellow
+        logging.ERROR: "\033[91m",     # Red
+        logging.CRITICAL: "\033[95m",  # Magenta
     }
-    RESET = '\033[0m'
+    RESET = "\033[0m"
 
-    def format(self, record):
-        color = self.COLORS.get(record.levelname, self.RESET)
-        message = super().format(record)
-        return f"{color}{message}{self.RESET}"
+    def format(self, record: logging.LogRecord) -> str:
+        color = self.COLORS.get(record.levelno, self.RESET)
+        formatted_msg = super().format(record)
+        return f"{color}{formatted_msg}{self.RESET}"
 
 
-def get_logger(name: str, log_dir=LOG_DIRECTORY) -> logging.Logger:
-    """Get a configured logger instance."""
+def get_logger(
+        name: str,
+        log_dir: Optional[str] = LOG_DIRECTORY
+) -> logging.Logger:
+    """
+    Returns a configured logger that logs colorized messages to the console.
+
+    Args:
+        name (str): The logger name (usually __name__).
+        log_dir (Optional[str]): Directory path for logs (not used for now but
+        available for extension).
+
+    Returns:
+        logging.Logger: Configured logger instance.
+    """
 
     logger = logging.getLogger(name)
 
     if logger.hasHandlers():
-        return logger  # Prevent duplicate handlers
+        return logger  # Avoid adding multiple handlers
 
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.DEBUG)  # Set global level (could be env-controlled later)
 
-    # Ensure log directory exists
-    os.makedirs(log_dir, exist_ok=True)
+    # Create log directory (no file handlers yet, but future-proof)
+    if log_dir:
+        os.makedirs(log_dir, exist_ok=True)
 
-    # Formatters
-    #formatter = logging.Formatter(LOG_FORMAT, datefmt='%Y-%m-%d %H:%M:%S')
-    color_formatter = ColorFormatter(
-        LOG_FORMAT,
-        datefmt='%Y-%m-%d %H:%M:%S'
-    )
-    # Console handler (colorized)
+    # Colorized console handler
     console_handler = logging.StreamHandler()
+    color_formatter = ColorFormatter(
+        fmt="[%(asctime)s] [%(levelname)s] %(name)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
     console_handler.setFormatter(color_formatter)
     logger.addHandler(console_handler)
-
-    # File handler for all logs
-    #file_handler = logging.FileHandler(os.path.join(log_dir, "app.log"))
-    #file_handler.setLevel(logging.DEBUG)
-    #file_handler.setFormatter(formatter)
-    #logger.addHandler(file_handler)
-
-    # File handler for warnings and errors
-    #error_handler = logging.FileHandler(os.path.join(log_dir, "error.log"))
-    #error_handler.setLevel(logging.WARNING)
-    #error_handler.setFormatter(formatter)
-    #logger.addHandler(error_handler)
 
     return logger
