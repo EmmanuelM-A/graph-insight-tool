@@ -1,5 +1,8 @@
+"""Upload Handler"""
+
 import pandas as pd
-from src.modules.data_uploader.data_loader import CSVDataLoader, ExcelDataLoader
+from src.modules.data_uploader.data_loader import (CSVDataLoader,
+                                                   ExcelDataLoader)
 from src.utils.logger import get_logger
 
 logger = get_logger("upload_handler_logger")
@@ -7,7 +10,8 @@ logger = get_logger("upload_handler_logger")
 
 def get_loader(filepath: str) -> type[CSVDataLoader | ExcelDataLoader]:
     """
-    Returns the correct loader instance that corresponds to the file extension. If no loader can be found for the file
+    Returns the correct loader instance that corresponds to the file
+    extension. If no loader can be found for the file
     then an unsupported format error is raised.
     :param filepath:
     :return:
@@ -24,7 +28,8 @@ def get_loader(filepath: str) -> type[CSVDataLoader | ExcelDataLoader]:
 
 def handle_upload(filepath: str) -> tuple[pd.DataFrame | None, str]:
     """
-    Handles the upload by using the appropriate file loader to load the file into a DataFrame.
+    Handles the upload by using the appropriate file loader to load the
+    file into a DataFrame.
     Returns the DataFrame and a status message.
     """
     try:

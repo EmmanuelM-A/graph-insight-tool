@@ -5,8 +5,8 @@ This module initializes the FastAPI application and includes the routes for the 
 from fastapi import FastAPI
 from src.routes.upload_routes import router as upload_router
 from src.routes.preprocess_routes import router as preprocess_router
-from src.middleware.exception_handler import api_error_handler
-from src.utils.exceptions import ApiError
+from src.exceptions.exception_handler import api_exception_handler
+from src.exceptions.api_exceptions import ApiException
 
 
 def create_app():
@@ -15,10 +15,10 @@ def create_app():
     app = FastAPI()
 
     # Register routes
-    app.include_router(upload_router)
-    app.include_router(preprocess_router)
+    app.include_router(upload_router, prefix="/api")
+    app.include_router(preprocess_router, prefix="/api")
 
-    # Add exception/error handler
-    app.add_exception_handler(ApiError, api_error_handler)
+    # Global error handling
+    app.add_exception_handler(ApiException, api_exception_handler)
 
     return app

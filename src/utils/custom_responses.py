@@ -1,7 +1,6 @@
 """This module defines custom responses for handling API responses."""
 
-from pydantic import BaseModel, Field
-from typing import Any, Optional
+from typing import Any
 from pydantic import BaseModel, Field
 from starlette.responses import JSONResponse
 from fastapi import status

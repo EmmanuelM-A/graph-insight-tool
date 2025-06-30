@@ -140,7 +140,7 @@ class UploadException(ApiException):
         self,
         details: str = "The request could not be understood or was missing "
                        "required parameters.",
-        code: str = "BAD_REQUEST",
+        code: str = "BAD_UPLOAD_REQUEST",
         stack_trace: Optional[str] = None
     ):
         super().__init__(
