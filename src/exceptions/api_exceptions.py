@@ -175,5 +175,5 @@ class ForbiddenException(ApiException):
             ),
             status_code=status.HTTP_403_FORBIDDEN,
             message="Permission denied. You do not have access to this "
-                      "resource."
+                    "resource."
         )

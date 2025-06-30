@@ -48,7 +48,8 @@ def get_logger(
     if logger.hasHandlers():
         return logger  # Avoid adding multiple handlers
 
-    logger.setLevel(logging.DEBUG)  # Set global level (could be env-controlled later)
+    # Set global level TODO: switch to env-controlled later
+    logger.setLevel(logging.DEBUG)
 
     # Create log directory (no file handlers yet, but future-proof)
     if log_dir:

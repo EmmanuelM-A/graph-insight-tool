@@ -64,6 +64,7 @@ class ErrorResponseModel(ResponseModel):
 
 # ---------------- # Response Classes (extends JSONResponse) ----------------
 
+
 class SuccessResponse(JSONResponse):
     """Custom JSON response for successful requests."""
 

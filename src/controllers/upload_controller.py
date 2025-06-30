@@ -75,7 +75,8 @@ async def process_upload_request(file: UploadFile = File(...)):
 
         # Return basic metadata
         return {
-            "message": f"The file '{filename}' has been uploaded successfully!",
+            "message": f"The file '{filename}' has been uploaded "
+                       f"successfully!",
             "data": data
         }
     except Exception as e:
