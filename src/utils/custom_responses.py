@@ -1,4 +1,4 @@
-"""This module defines a custom response class for handling API responses."""
+"""This module defines custom responses for handling API responses."""
 
 from pydantic import BaseModel, Field
 from typing import Any, Optional
