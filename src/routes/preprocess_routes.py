@@ -4,10 +4,8 @@ This file defines the routes for the preprocess functionality in the application
 
 from fastapi import APIRouter, UploadFile, File, status
 
-import json
-
 from src.controllers.preprocess_controller import preprocess_data_request
-from src.utils.custom_responses import SuccessResponse
+from src.utils.custom_responses import SuccessResponse, ensure_serializable
 
 router = APIRouter(
     prefix="/preprocess",
@@ -24,13 +22,10 @@ async def preprocess_data(
 
     preview = preprocess_data_response["preview"]
 
-    try:
-        json.dumps(preview)
-    except TypeError:
-        preview = str(preview)
+    preview = ensure_serializable(preview)
 
     return SuccessResponse(
-        message=f"Data preprocessing for the file {file.filename} "
+        message=f"Data preprocessing for the file {file.filename} was"
                 f"completed successfully.",
         status_code=status.HTTP_200_OK,
         data=preview

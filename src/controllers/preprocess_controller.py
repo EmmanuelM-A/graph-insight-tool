@@ -66,7 +66,9 @@ async def preprocess_data_request(
         processed_data = preprocessor.preprocess_data(uploaded_data)
 
         logger.info(
-            "Data preprocessing completed successfully."
+            "Data preprocessing for the file: %s was completed "
+            "successfully.",
+            filename
         )
 
         return {

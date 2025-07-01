@@ -1,5 +1,7 @@
 """This module defines custom responses for handling API responses."""
 
+import json
+
 from typing import Any
 from pydantic import BaseModel, Field
 from starlette.responses import JSONResponse
@@ -105,3 +107,32 @@ class ErrorResponse(JSONResponse):
             status_code=status_code,
             content=payload.model_dump()
         )
+
+
+class CustomJSONEncoder(json.JSONEncoder):
+    """
+    Responsible for converting custom JSON response classes into a
+    suitable format.
+    """
+
+    def default(self, obj):
+        """
+        Convert custom objects to a serializable format.
+        """
+
+        if hasattr(obj, "to_dict"):
+            return obj.to_dict()
+        return str(obj)  # Fallback to string representation
+
+
+def ensure_serializable(data):
+    """
+    Checks if the data is serializable, otherwise it will convert it.
+    """
+
+    try:
+        json.dumps(data, cls=CustomJSONEncoder)
+        return data
+    except TypeError:
+        # Convert non-serializable data to string as a fallback
+        return str(data)

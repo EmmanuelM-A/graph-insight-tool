@@ -21,7 +21,9 @@ def allowed_file(filename):
             in ALLOWED_EXTENSIONS)
 
 
-async def process_upload_request(file: UploadFile = File(...)):
+async def process_upload_request(
+        file: UploadFile = File(...)
+) -> object:
     """Processes the file upload request using FastAPI."""
 
     # Check if a file was provided

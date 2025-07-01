@@ -8,7 +8,7 @@ import json
 
 from fastapi import APIRouter, UploadFile, File
 from src.controllers.upload_controller import process_upload_request
-from src.utils.custom_responses import SuccessResponse
+from src.utils.custom_responses import SuccessResponse, ensure_serializable
 
 router = APIRouter(
     prefix="/upload",
@@ -24,10 +24,7 @@ async def upload_file(file: UploadFile = File(...)):
 
     preview = upload_data_response["preview"]
 
-    try:
-        json.dumps(preview)
-    except TypeError:
-        preview = str(preview)
+    preview = ensure_serializable(preview)
 
     return SuccessResponse(
         message="The file has been uploaded successfully!",
