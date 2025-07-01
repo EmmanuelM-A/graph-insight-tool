@@ -77,6 +77,7 @@ async def process_upload_request(file: UploadFile = File(...)):
         return {
             "message": f"The file '{filename}' has been uploaded "
                        f"successfully!",
+            "preview": data.head(10).to_json(),
             "data": data
         }
     except Exception as e:
