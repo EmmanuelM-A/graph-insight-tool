@@ -154,6 +154,28 @@ class UploadException(ApiException):
         )
 
 
+class PreprocessingDataException(ApiException):
+    """
+    Custom error class for errors that occur during data preprocessing.
+    Corresponds to HTTP 422 Unprocessable Entity.
+    """
+    def __init__(
+        self,
+        details: str = "An error occurred while preprocessing the data.",
+        code: str = "PREPROCESSING_DATA_ERROR",
+        stack_trace: Optional[str] = None
+    ):
+        super().__init__(
+            error_detail=ErrorDetail(
+                code=code,
+                details=details,
+                stack_trace=stack_trace
+            ),
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            message="Data preprocessing failed. Please check your input data."
+        )
+
+
 class ForbiddenException(ApiException):
     """
     Custom error class for authorization failures (authenticated but not

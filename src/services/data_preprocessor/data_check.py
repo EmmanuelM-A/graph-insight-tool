@@ -4,8 +4,8 @@ import pandas as pd
 
 class DataCheck(ABC):
     """
-    Abstract base class for the data checkers. This class defines the interface for
-    checking if data meets the implemented conditions.
+    Abstract base class for the data checkers. This class defines the
+    interface for checking if data meets the implemented conditions.
     """
 
     @abstractmethod
