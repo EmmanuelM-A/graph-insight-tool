@@ -50,12 +50,6 @@ async def process_upload_request(file: UploadFile = File(...)):
         with open(filepath, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        logger.info(
-            "File '%s' uploaded successfully to '%s'.",
-            filename,
-            filepath
-        )
-
         # Process the file into a DataFrame
         data, message = handle_upload(filepath)
 
@@ -69,7 +63,7 @@ async def process_upload_request(file: UploadFile = File(...)):
         os.remove(filepath)
 
         logger.info(
-            "File '%s' processed and cleaned up successfully.",
+            "File '%s' has been uploaded successfully!",
             filename
         )
 

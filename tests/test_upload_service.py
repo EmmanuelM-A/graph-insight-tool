@@ -4,7 +4,6 @@ import io
 from unittest.mock import patch
 
 import pytest
-import pytest_asyncio
 
 from src.controllers.upload_controller import process_upload_request
 from src.exceptions import api_exceptions as ae
