@@ -28,6 +28,3 @@ jobs:
 
       - name: Lint code with Flake8
         run: flake8 src tests
-
-
-        Can you complete these tests please? Remember I am using fastapi now not flask. Use pytest and any other library you think is needed.

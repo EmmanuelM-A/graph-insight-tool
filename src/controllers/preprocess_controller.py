@@ -9,10 +9,11 @@ from src.modules.data_preprocessor.data_treatment import (
     OutlierTreatment,
     DuplicateTreatment,
     GarbageValueTreatment)
-from src.modules.data_preprocessor.preprocessing_handler import PreprocessingHandler
-from src.utils.custom_response import SuccessResponse
+from src.modules.data_preprocessor.preprocessing_handler import (
+    PreprocessingHandler)
+from src.utils.custom_responses import SuccessResponse
 from src.utils.logger import get_logger
-from src.utils import exceptions
+from src.exceptions import api_exceptions
 
 logger = get_logger("process_controller_logger")
 
@@ -32,17 +33,15 @@ def preprocess_data_request(request) -> SuccessResponse | None:
     if uploaded_data is None or uploaded_data.empty:
         logger.error("No data found in the uploaded file!")
 
-        raise exceptions.BadRequestError(
+        raise exceptions.BadRequestException(
             details="No data found in the uploaded file!"
         )
 
     # Check the sensitivity of the data
-    #if check_sensitivity(uploaded_data):
+    # if check_sensitivity(uploaded_data):
     #    logger.error("Data contains sensitive information!")
-
     #    handle_sensitivity_checker()
-
-    #logger.info("Sensitivity check completed, proceeding with preprocessing.")"
+    # logger.info("Sensitivity check completed, proceeding with preprocessing.")"
 
     # Preprocess the data
     preprocessor = PreprocessingHandler(

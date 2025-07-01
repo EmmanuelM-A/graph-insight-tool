@@ -8,6 +8,9 @@ import uvicorn
 from src import create_app
 
 # TODO: OPTIMIZE EXISTING CODE
+# TODO: Create e2e and unit tests for the upload route
+# TODO: Refactor the preprocess route
+# TODO: Rename files/folders - sort out project structure
 
 load_dotenv(".env")
 

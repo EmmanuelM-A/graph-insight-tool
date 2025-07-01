@@ -6,7 +6,7 @@ from fastapi import Request
 from starlette.responses import JSONResponse
 
 from src.exceptions.api_exceptions import ApiException
-from src.utils.custom_responses import ErrorDetail
+from src.utils.custom_responses import ErrorDetail, ErrorResponse
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -35,10 +35,8 @@ async def api_exception_handler(
     )
 
     # Return a JSONResponse with the structured error
-    return JSONResponse(
+    return ErrorResponse(
         status_code=exc.status_code,
-        content={
-            "error": error_detail.model_dump(),
-            "message": exc.detail.get("message", "An error occurred"),
-        }
+        message=error_detail.get("details", "An error occurred"),
+        error=error_detail
     )
