@@ -3,13 +3,13 @@
 from fastapi import status
 
 from src.controllers.upload_controller import process_upload_request
-from src.modules.data_preprocessor.data_check import DataSanityCheck
-from src.modules.data_preprocessor.data_treatment import (
+from src.services.data_preprocessor.data_check import DataSanityCheck
+from src.services.data_preprocessor.data_treatment import (
     MissingValueTreatment,
     OutlierTreatment,
     DuplicateTreatment,
     GarbageValueTreatment)
-from src.modules.data_preprocessor.preprocessing_handler import (
+from src.services.data_preprocessor.preprocessing_handler import (
     PreprocessingHandler)
 from src.utils.custom_responses import SuccessResponse
 from src.utils.logger import get_logger

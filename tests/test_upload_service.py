@@ -7,7 +7,7 @@ import pytest
 
 from src.controllers.upload_controller import process_upload_request
 from src.exceptions import api_exceptions as ae
-from src.modules.data_uploader.upload_handler import get_loader
+from src.services.data_uploader.upload_handler import get_loader
 
 
 class TestUploadService:

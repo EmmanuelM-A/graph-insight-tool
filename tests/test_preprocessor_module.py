@@ -2,11 +2,11 @@
 
 import pytest
 import pandas as pd
-from src.modules.data_preprocessor.data_normalizer import DataNormalizer
-from src.modules.data_preprocessor.preprocessing_handler import PreprocessingHandler
-from src.modules.data_preprocessor.data_check import DataCheck
-from src.modules.data_preprocessor.data_treatment import DataTreatment
-from src.modules.data_preprocessor.data_encoder import DataEncoder
+from src.services.data_preprocessor.data_normalizer import DataNormalizer
+from src.services.data_preprocessor.preprocessing_handler import PreprocessingHandler
+from src.services.data_preprocessor.data_check import DataCheck
+from src.services.data_preprocessor.data_treatment import DataTreatment
+from src.services.data_preprocessor.data_encoder import DataEncoder
 
 class DummyCheck(DataCheck):
     def check_data(self, data):

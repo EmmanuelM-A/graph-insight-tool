@@ -5,7 +5,7 @@ import shutil
 from werkzeug.utils import secure_filename
 from fastapi import UploadFile, File
 
-from src.modules.data_uploader.upload_handler import handle_upload
+from src.services.data_uploader.upload_handler import handle_upload
 from src.configs.global_configs import UPLOAD_DIRECTORY, ALLOWED_EXTENSIONS
 from src.exceptions import api_exceptions as ae
 from src.utils.logger import get_logger

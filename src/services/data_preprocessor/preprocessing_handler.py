@@ -1,11 +1,11 @@
 import pandas as pd
 from typing_extensions import override
 
-from src.modules.data_preprocessor.data_check import DataCheck
-from src.modules.data_preprocessor.data_encoder import DataEncoder
-from src.modules.data_preprocessor.data_normalizer import DataNormalizer
-from src.modules.data_preprocessor.data_preprocessor import DataPreprocessor
-from src.modules.data_preprocessor.data_treatment import DataTreatment
+from src.services.data_preprocessor.data_check import DataCheck
+from src.services.data_preprocessor.data_encoder import DataEncoder
+from src.services.data_preprocessor.data_normalizer import DataNormalizer
+from src.services.data_preprocessor.data_preprocessor import DataPreprocessor
+from src.services.data_preprocessor.data_treatment import DataTreatment
 
 
 class PreprocessingHandler(DataPreprocessor):
