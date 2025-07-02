@@ -1,5 +1,6 @@
 """
-This file defines the routes for the preprocess functionality in the application.
+This file defines the routes for the preprocess functionality in the
+application.
 """
 
 from fastapi import APIRouter, UploadFile, File, status
@@ -11,6 +12,7 @@ router = APIRouter(
     prefix="/preprocess",
     tags=["preprocess"]
 )
+
 
 @router.post("/")
 async def preprocess_data(
@@ -26,7 +28,7 @@ async def preprocess_data(
 
     return SuccessResponse(
         message=f"Data preprocessing for the file {file.filename} was"
-                f"completed successfully.",
+                f"successfully completed!",
         status_code=status.HTTP_200_OK,
         data=preview
     )

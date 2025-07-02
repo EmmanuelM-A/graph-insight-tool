@@ -12,7 +12,8 @@ class DataLoader(ABC):
         """
         Load data from the specified source.
 
-        :param source: The source from which to load data (e.g., file path, URL).
+        :param source: The source from which to load data (e.g.,
+        file path, URL).
         :return: A dictionary containing the loaded data.
         """
         raise NotImplementedError("Subclasses must implement this method.")

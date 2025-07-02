@@ -1,3 +1,7 @@
+"""
+Data Treatments
+"""
+
 from abc import ABC, abstractmethod
 import pandas as pd
 import numpy as np
@@ -23,7 +27,8 @@ class GarbageValueTreatment(DataTreatment):
     """
     Concrete implementation of the DataTreatment for garbage value treatment.
 
-    Removes columns with all nulls, all constant values, or suspicious values like empty strings or 'N/A'.
+    Removes columns with all nulls, all constant values, or suspicious values
+    like empty strings or 'N/A'.
     """
 
     def treat_data(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -44,7 +49,8 @@ class MissingValueTreatment(DataTreatment):
     """
     Concrete implementation of the DataTreatment for missing value treatment.
 
-    Fills missing values using mean for numeric and mode for categorical columns.
+    Fills missing values using mean for numeric and mode for categorical
+    columns.
     """
 
     def treat_data(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -66,12 +72,13 @@ class OutlierTreatment(DataTreatment):
 
     def treat_data(self, data: pd.DataFrame) -> pd.DataFrame:
         for col in data.select_dtypes(include=['number']).columns:
-            Q1 = data[col].quantile(0.25)
-            Q3 = data[col].quantile(0.75)
-            IQR = Q3 - Q1
-            lower_bound = Q1 - 1.5 * IQR
-            upper_bound = Q3 + 1.5 * IQR
-            data = data[(data[col] >= lower_bound) & (data[col] <= upper_bound)]
+            q1 = data[col].quantile(0.25)
+            q3 = data[col].quantile(0.75)
+            iqr = q3 - q1
+            lower_bound = q1 - 1.5 * iqr
+            upper_bound = q3 + 1.5 * iqr
+            data = data[(data[col] >= lower_bound) &
+                        (data[col] <= upper_bound)]
         return data
 
 

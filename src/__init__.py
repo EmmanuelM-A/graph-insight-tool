@@ -1,5 +1,6 @@
 """
-This module initializes the FastAPI application and includes the routes for the application.
+This module initializes the FastAPI application and includes the routes for
+the application.
 """
 
 from fastapi import FastAPI

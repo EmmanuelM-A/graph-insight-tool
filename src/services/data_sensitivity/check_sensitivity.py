@@ -10,7 +10,8 @@ def check_sensitivity(data: pd.DataFrame) -> bool:
     :return: True if data contains sensitive information, False otherwise.
     """
 
-    # Generate a tabular analysis which describes PII entities in the DataFrame.
+    # Generate a tabular analysis which describes the PII entities in
+    # the DataFrame.
     tabular_analysis = PandasAnalysisBuilder().generate_analysis(data)
 
     return True if tabular_analysis else False

@@ -26,7 +26,8 @@ class DataPreprocessor(ABC):
 
     def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
-        Preprocess the data by running checks, treatments, normalization, and encoding.
+        Preprocess the data by running checks, treatments, normalization,
+        and encoding.
         :param data: DataFrame to preprocess.
         :return: Preprocessed DataFrame.
         """
@@ -44,10 +45,10 @@ class DataPreprocessor(ABC):
         if self.encoder:
             encoded_data = self.encoder.encode(normalized_data)
 
-        # Assuming that if normalization is not applied, we return treated data directly
+        # Assuming that if normalization is not applied, we return treated
+        # data directly
 
         return treated_data if encoded_data is None else encoded_data
-
 
     def run_data_treatments(self, data: pd.DataFrame) -> pd.DataFrame:
         """
@@ -58,7 +59,6 @@ class DataPreprocessor(ABC):
         """
         raise NotImplementedError("Subclasses must implement this method.")
 
-
     def validate_data(self, data: pd.DataFrame) -> bool:
         """
         Run data checks to ensure the data meets the required conditions.
@@ -68,7 +68,6 @@ class DataPreprocessor(ABC):
         """
         raise NotImplementedError("Subclasses must implement this method.")
 
-
     def encode_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
         Run encoder on the data.
@@ -77,7 +76,6 @@ class DataPreprocessor(ABC):
         :return: Encoded DataFrame.
         """
         raise NotImplementedError("Subclasses must implement this method.")
-
 
     def normalize_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """

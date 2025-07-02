@@ -72,7 +72,6 @@ async def preprocess_data_request(
         )
 
         return {
-            "message": "Data preprocessing completed successfully.",
             "preview": processed_data.head(10).to_json(),
             "data": processed_data
         }
