@@ -2,7 +2,7 @@
 
 from fastapi import UploadFile, File
 
-from src.controllers.upload_controller import process_upload_request
+from src.api.v1.controllers.upload_controller import process_upload_request
 from src.services.data_preprocessor.data_check import DataSanityCheck
 from src.services.data_preprocessor.data_treatment import (
     MissingValueTreatment,

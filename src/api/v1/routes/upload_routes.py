@@ -5,7 +5,8 @@ This file defines the routes for the upload functionality in the application.
 from fastapi import status
 
 from fastapi import APIRouter, UploadFile, File
-from src.controllers.upload_controller import process_upload_request
+from src.api.v1.controllers.preprocess_controller import (
+    process_upload_request)
 from src.utils.custom_responses import SuccessResponse, ensure_serializable
 
 router = APIRouter(

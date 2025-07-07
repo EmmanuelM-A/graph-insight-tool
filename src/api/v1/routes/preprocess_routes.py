@@ -5,7 +5,8 @@ application.
 
 from fastapi import APIRouter, UploadFile, File, status
 
-from src.controllers.preprocess_controller import preprocess_data_request
+from src.api.v1.controllers.preprocess_controller import (
+    preprocess_data_request)
 from src.utils.custom_responses import SuccessResponse, ensure_serializable
 
 router = APIRouter(
