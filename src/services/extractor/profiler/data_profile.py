@@ -1,12 +1,54 @@
 """
 Data Profile
 """
-from dataclasses import dataclass
 
-from src.services.extractor.profiler.profile import Profile
+from dataclasses import dataclass
+from typing import Any, Dict, Optional, List
+from abc import ABC
+
+
+class Profile(ABC):
+    """
+    Represents a standard profile class hold data about the specified subject.
+    """
+
+    def to_json(self):
+        """
+        Converts the profile into a json readable format.
+        """
+
+    def to_dict(self):
+        """
+        Convert the input data into a dictionary.
+        """
 
 
 @dataclass
+class ColumnProfile(Profile):
+    """
+    Concrete class
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.column_name: str  = ""
+        self.column_classification: str = ""
+        self.cardinality: int = 0
+        self.uniqueness_ratio: float = 0.0
+        self.missing_values: int = 0
+        self.missing_percentage: float = 0.0
+        self.is_binary: bool = False
+        self.is_time_series: bool = False
+        self.potential_role: List[str] = []
+        self.statistics: Optional[Dict[str, Any]] = None
+
+    def to_json(self):
+        pass
+
+    def to_dict(self):
+        pass
+
+
 class DataProfile(Profile):
     """
     Represents the metadata of a pandas DataFrame.
