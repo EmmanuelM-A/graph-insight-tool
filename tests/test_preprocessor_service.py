@@ -5,7 +5,8 @@ from unittest.mock import patch, MagicMock
 import pandas as pd
 import pytest
 
-from src.controllers.preprocess_controller import preprocess_data_request
+from src.api.v1.controllers.preprocess_controller import (
+    preprocess_data_request)
 from src.services.data_preprocessor.data_check import DataCheck
 from src.services.data_preprocessor.data_encoder import DataEncoder
 from src.services.data_preprocessor.data_normalizer import DataNormalizer
