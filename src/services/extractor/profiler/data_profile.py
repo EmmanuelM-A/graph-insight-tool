@@ -1,7 +1,7 @@
 """
 Data Profile
 """
-
+import json
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, List
 from abc import ABC
@@ -42,11 +42,22 @@ class ColumnProfile(Profile):
         self.potential_role: List[str] = []
         self.statistics: Optional[Dict[str, Any]] = None
 
-    def to_json(self):
-        pass
-
     def to_dict(self):
-        pass
+        return {
+            "column_name": self.column_name,
+            "column_classification": self.column_classification,
+            "cardinality": self.cardinality,
+            "uniqueness_ratio": self.uniqueness_ratio,
+            "missing_values": self.missing_values,
+            "missing_percentage": self.missing_percentage,
+            "is_binary": self.is_binary,
+            "is_time_series": self.is_time_series,
+            "potential_role": self.potential_role,
+            "statistics": self.statistics,
+        }
+
+    def to_json(self):
+        return json.dumps(self.to_dict(), default=str, indent=4)
 
 
 class DataProfile(Profile):
@@ -73,8 +84,18 @@ class DataProfile(Profile):
     def __len__(self):
         pass
 
-    def to_json(self):
-        pass
-
     def to_dict(self):
-        pass
+        return {
+            "num_columns": self.num_columns,
+            "num_rows": self.num_rows,
+            "column_profiles": [cp.to_dict() for cp in self.column_profiles],
+            "column_classifications": self.column_classifications,
+            "any_binary_columns": self.any_binary_columns,
+            "any_time_series": self.any_time_series,
+            "inter_column_relationships": self.inter_column_relationships,
+            "semantic_hints": self.semantic_hints,
+            "sample_records": self.sample_records,
+        }
+
+    def to_json(self):
+        return json.dumps(self.to_dict(), default=str, indent=4)
