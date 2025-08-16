@@ -7,7 +7,7 @@ import pytest
 
 from src.api.v1.controllers.preprocess_controller import (
     process_upload_request)
-from src.exceptions import api_exceptions as ae
+from src.utils import api_exceptions as ae
 from src.services.data_uploader.upload_handler import get_loader
 
 

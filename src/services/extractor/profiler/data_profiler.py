@@ -3,13 +3,16 @@ This module is responsible for generating a full profile of a DataFrame
 by extracting schema, distributional, and statistical insights and storing
 them in a `DataProfile` and `ColumnProfile` data containers.
 """
+
 from typing import List
 
 import numpy as np
 import pandas as pd
 
-from src.services.extractor.profiler.data_profile import (DataProfile,
-                                                          ColumnProfile)
+from src.services.extractor.profiler.data_profile import (
+    DataProfile,
+    ColumnProfile
+)
 
 
 class DataProfiler:
@@ -25,6 +28,7 @@ class DataProfiler:
 
         :param data: A pandas DataFrame
         """
+
         self.data = data.copy()
 
     def generate_profile(self) -> DataProfile:
@@ -32,6 +36,10 @@ class DataProfiler:
         Main method to generate a full data profile.
         :return: DataProfile object populated with profiling information.
         """
+
+
+        # TODO FIX THIS FILE SO IT PROFILE CONTAINS THE RIGHT INFO
+        # TODO LOOK INTO THE DATAPREP.EDA LIBRARY AND FIND OUT HOW IT WORKS
 
         profile = DataProfile()
 
@@ -45,7 +53,8 @@ class DataProfiler:
             profile.column_profiles.append(self._profile_column(col))
 
         profile.column_classifications = (
-            self._get_column_classification_summary(profile.column_profiles))
+            self._get_column_classification_summary(profile.column_profiles)
+        )
 
         profile.any_binary_columns = \
             [
@@ -185,6 +194,6 @@ if __name__ == "__main__":
 
     profiler = DataProfiler(test_data)
 
-    profile = profiler.generate_profile()
+    profiled_data = profiler.generate_profile()
 
-    print(profile.to_json())
+    print(profiled_data.to_json())

@@ -11,8 +11,8 @@ from src.services.data_preprocessor.data_treatment import (
     GarbageValueTreatment)
 from src.services.data_preprocessor.preprocessing_handler import (
     PreprocessingHandler)
-from src.utils.logger import get_logger
-from src.exceptions import api_exceptions as ae
+from src.logging.logger import get_logger
+from src.utils import api_exceptions as ae
 
 logger = get_logger(__name__)
 

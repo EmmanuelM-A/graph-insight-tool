@@ -3,7 +3,7 @@
 import pandas as pd
 from src.services.data_uploader.data_loader import (CSVDataLoader,
                                                     ExcelDataLoader)
-from src.utils.logger import get_logger
+from src.logging.logger import get_logger
 
 logger = get_logger("upload_handler_logger")
 

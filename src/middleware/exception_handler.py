@@ -5,9 +5,9 @@ Global exception handler for structured error responses and logging.
 from fastapi import Request
 from starlette.responses import JSONResponse
 
-from src.exceptions.api_exceptions import ApiException
+from src.utils.api_exceptions import ApiException
 from src.utils.custom_responses import ErrorDetail, ErrorResponse
-from src.utils.logger import get_logger
+from src.logging.logger import get_logger
 
 logger = get_logger(__name__)
 

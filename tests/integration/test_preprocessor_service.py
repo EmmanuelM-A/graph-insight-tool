@@ -13,8 +13,7 @@ from src.services.data_preprocessor.data_normalizer import DataNormalizer
 from src.services.data_preprocessor.data_treatment import DataTreatment
 from src.services.data_preprocessor.preprocessing_handler import (
     PreprocessingHandler)
-from src.exceptions import api_exceptions as ae
-
+from src.utils import api_exceptions as ae
 
 TEST_FILE_PATH = "tests/test_data_files/test-data-0.csv"
 

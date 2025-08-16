@@ -6,7 +6,7 @@ import logging
 import os
 from typing import Optional
 
-from src.configs.global_configs import LOG_DIRECTORY
+from src.configs.settings import LOG_DIRECTORY
 
 
 class ColorFormatter(logging.Formatter):
